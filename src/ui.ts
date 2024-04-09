@@ -12,4 +12,5 @@ export const {
     Text,
     VStack,
     vars,
+    Image,
 } = createSystem()

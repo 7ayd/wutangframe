@@ -1,5 +1,5 @@
-import { Frog, Button } from 'frog'
-import { Box, Heading, Text, VStack, vars } from './ui.ts'
+import { Frog, Button, TextInput } from 'frog'
+import { Box, Heading, Text, VStack, vars, HStack, Image } from './ui.ts'
 
 import { devtools } from 'frog/dev'
 import { serveStatic } from 'frog/serve-static'
@@ -16,7 +16,10 @@ export const app = new Frog({
         padding="32"
       >
         <VStack gap="4">
-          <Heading>FrogUI 🐸</Heading>
+          <HStack gap="20" alignHorizontal="center">
+            <Heading >Wu-Tang Name Generator</Heading>
+            <Image src="/wutang.png" height="40" />
+          </HStack>
           <Text color="text200" size="20">
             Build consistent frame experiences
           </Text>
@@ -25,6 +28,7 @@ export const app = new Frog({
       </Box>
     ),
     intents: [
+      <TextInput placeholder="Enter your name to enter the Wu-Tang" />,
       <Button value="apple">Apple</Button>,
       <Button value="banana">Banana</Button>,
       <Button value="mango">Mango</Button>
