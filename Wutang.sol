@@ -1,6 +1,6 @@
 // SPDX-License-Identifier: MIT
 
-pragma solidity ^0.8.1;
+pragma solidity ^0.8.20;
 
 //OpenZeppelin contracts for ERC721. We dont need to write the contracts by hand but we can if we wanted to to make it more efficent if possible i.e. ERC721A.
 import "@openzeppelin/contracts/token/ERC721/extensions/ERC721URIStorage.sol";
@@ -10,10 +10,7 @@ import {Base64} from "@openzeppelin/contracts/utils/Base64.sol";
 import {Ownable} from "@openzeppelin/contracts/access/Ownable.sol";
 
 contract NFT is ERC721URIStorage, Ownable {
-    constructor()
-        ERC721("Wu-Tang On Chain", "Wu-Tang On Chain")
-        Ownable(msg.sender)
-    {}
+    constructor() ERC721("Wu-Tang On Chain", "Wu-Tang On Chain") {}
 
     string firstName;
     string secondName;
@@ -66,7 +63,7 @@ contract NFT is ERC721URIStorage, Ownable {
 
     function pickRandomFirstWord(
         string calldata name
-    ) public view returns (string memory) {
+    ) internal view returns (string memory) {
         uint256 rand = uint256(
             keccak256(abi.encodePacked(blockhash(block.number - 1), name))
         );
@@ -76,7 +73,7 @@ contract NFT is ERC721URIStorage, Ownable {
 
     function pickRandomSecondWord(
         string calldata name
-    ) public view returns (string memory) {
+    ) internal view returns (string memory) {
         uint256 rand = uint256(
             keccak256(abi.encodePacked(blockhash(block.number - 1), name))
         );
@@ -92,7 +89,7 @@ contract NFT is ERC721URIStorage, Ownable {
         string calldata _firstName,
         string calldata _lastName
     ) public payable {
-        // Grabs the current token ID
+        require(msg.value >= mintFee, "Insufficient funds to mint.");
         uint256 newItemID = _tokenIds;
 
         string memory first = pickRandomFirstWord(_firstName);
@@ -128,5 +125,9 @@ contract NFT is ERC721URIStorage, Ownable {
         _setTokenURI(newItemID, finalTokenUri);
 
         ++_tokenIds;
+    }
+
+    function withdraw() external onlyOwner {
+        payable(owner()).transfer(address(this).balance);
     }
 }
