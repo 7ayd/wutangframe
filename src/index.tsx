@@ -40,6 +40,8 @@ devtools(app, { serveStatic })
 
 
 
+/// Have to write a function that will get the token URI and decode it to get the first and last name. 
+
 // import { serveStatic } from '@hono/node-server/serve-static'
 // import { Button, Frog, TextInput } from 'frog'
 // import { devtools } from 'frog/dev'

@@ -3,8 +3,8 @@
 pragma solidity ^0.8.20;
 
 //OpenZeppelin contracts for ERC721. We dont need to write the contracts by hand but we can if we wanted to to make it more efficent if possible i.e. ERC721A.
-import "@openzeppelin/contracts/token/ERC721/extensions/ERC721URIStorage.sol";
-import "@openzeppelin/contracts/utils/Strings.sol";
+import {ERC721URIStorage} from "@openzeppelin/contracts/token/ERC721/extensions/ERC721URIStorage.sol";
+import {Strings} from "@openzeppelin/contracts/utils/Strings.sol";
 
 import {Base64} from "@openzeppelin/contracts/utils/Base64.sol";
 import {Ownable} from "@openzeppelin/contracts/access/Ownable.sol";
@@ -129,5 +129,9 @@ contract NFT is ERC721URIStorage, Ownable {
 
     function withdraw() external onlyOwner {
         payable(owner()).transfer(address(this).balance);
+    }
+
+    function changeMintFee(uint256 _newFee) external onlyOwner {
+        mintFee = _newFee;
     }
 }
