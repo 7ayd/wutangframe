@@ -3,6 +3,7 @@ import { Box, Heading, Text, VStack, vars, HStack, Image } from './ui.ts'
 
 import { devtools } from 'frog/dev'
 import { serveStatic } from 'frog/serve-static'
+import { abi } from './abi'
 
 export const app = new Frog({
   ui: { vars },
@@ -12,16 +13,16 @@ export const app = new Frog({
       <Box
         grow
         alignVertical="center"
-        backgroundColor="background"
+        backgroundColor="blue"
         padding="32"
       >
-        <VStack gap="4">
+        <VStack gap="4" alignHorizontal="center">
           <HStack gap="20" alignHorizontal="center">
             <Heading >Wu-Tang Name Generator</Heading>
             <Image src="/wutang.png" height="40" />
-          </HStack>
-          <Text color="text200" size="20">
-            Build consistent frame experiences
+          </HStack >
+          <Text color="text200" size="20" >
+            Make your Wu-Tang Forver. Wu-Tang On-Chain
           </Text>
           <Text color="teal" size="20">Hi Zaydo</Text>
         </VStack>
@@ -29,10 +30,18 @@ export const app = new Frog({
     ),
     intents: [
       <TextInput placeholder="Enter your name to enter the Wu-Tang" />,
-      <Button value="apple">Apple</Button>,
-      <Button value="banana">Banana</Button>,
-      <Button value="mango">Mango</Button>
+      <Button.Transaction target="/mint">Mint</Button.Transaction>
     ]
+  })
+})
+
+app.transaction('/mint', (c) => {
+  return c.contract({
+    abi,
+    chainId: 'eip155:10',
+    functionName: 'mint',
+    args: [69420n],
+    to: '0x3ad2C36db976B101B2Bed277F531e0efbF94ba42',
   })
 })
 
