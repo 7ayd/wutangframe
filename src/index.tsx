@@ -3,7 +3,7 @@ import { Box, Heading, Text, VStack, vars, HStack, Image } from './ui.ts'
 
 import { devtools } from 'frog/dev'
 import { serveStatic } from 'frog/serve-static'
-import { abi } from './abi'
+import { abi } from '/abi.ts'
 
 export const app = new Frog({
   ui: { vars },
@@ -18,15 +18,15 @@ export const app = new Frog({
       >
         <VStack gap="4" alignHorizontal="center">
           <HStack gap="20" alignHorizontal="center">
-            <Heading >Wu-Tang Name Generator</Heading>
+            <Heading font="wutang" >Wu-Tang Name Generator</Heading>
             <Image src="/wutang.png" height="40" />
           </HStack >
-          <Text color="text200" size="20" >
+          <Text color="black" size="20" >
             Make your Wu-Tang Forver. Wu-Tang On-Chain
           </Text>
-          <Text color="teal" size="20">Hi Zaydo</Text>
+          <Text font="wutang" color="white" size="20">Hi Zaydo</Text>
         </VStack>
-      </Box>
+      </Box >
     ),
     intents: [
       <TextInput placeholder="Enter your name to enter the Wu-Tang" />,
@@ -38,7 +38,7 @@ export const app = new Frog({
 app.transaction('/mint', (c) => {
   return c.contract({
     abi,
-    chainId: 'eip155:10',
+    chainId: 'eip155:8454',
     functionName: 'mint',
     args: [69420n],
     to: '0x3ad2C36db976B101B2Bed277F531e0efbF94ba42',
