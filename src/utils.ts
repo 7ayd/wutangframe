@@ -38,9 +38,7 @@ async function getCombinedWordFromToken(contractAddress: string, tokenId: number
 }
 
 // Example usage
-const provider = new ethers.providers.JsonRpcProvider("https://base-sepolia.g.alchemy.com/v2/qIQoHUQEQHjlXDCz27wgehQUcE0_XY3y");  // Adjust for your Ethereum node
-const contractAddress = "0x1A8065881309715997Ab430FEEba0d9fD7B681D6";  // Replace with your contract's address
-const tokenId = 1;  // Example token ID
+
 
 getCombinedWordFromToken(contractAddress, tokenId, provider)
     .then(name => console.log("Combined Word:", name))
